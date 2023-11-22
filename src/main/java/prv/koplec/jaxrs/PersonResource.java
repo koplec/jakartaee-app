@@ -7,7 +7,9 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import prv.koplec.models.Person;
 
 @Path("persons")
@@ -23,6 +25,8 @@ public class PersonResource {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Person getById(@PathParam("id") int id){
-        return personDB.get(id);
+        Person p = personDB.get(id);
+        if(p != null) return p;
+        throw new WebApplicationException("id="+id + " not found", Response.Status.NOT_FOUND);
     }
 }
