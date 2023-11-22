@@ -4,4 +4,17 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+
+  <servlet>
+    <servlet-name>JAX-RS</servlet-name>
+    <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+    <init-param>
+      <param-name>jersey.config.server.provider.packages</param-name>
+      <param-value>prv.koplec.jaxrs</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>JAX-RS</servlet-name>
+    <url-pattern>/api/*</url-pattern>
+  </servlet-mapping>
 </web-app>
