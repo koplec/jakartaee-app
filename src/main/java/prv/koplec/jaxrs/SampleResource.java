@@ -8,6 +8,7 @@ import jakarta.ws.rs.core.MediaType;
 @Path("/sample")
 public class SampleResource {
 
+    // localhost:8080/webapp/api/sampleで表示されることを確認
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String hello(){
