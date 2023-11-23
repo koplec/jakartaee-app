@@ -17,4 +17,13 @@
     <servlet-name>JAX-RS</servlet-name>
     <url-pattern>/api/*</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>dp-mvc-ListController</servlet-name>
+    <servlet-class>prv.koplec.dp.mvc.ListController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>dp-mvc-ListController</servlet-name>
+    <url-pattern>/dp/mvc/ListController</url-pattern>
+  </servlet-mapping>
 </web-app>
