@@ -26,4 +26,13 @@
     <servlet-name>dp-mvc-ListController</servlet-name>
     <url-pattern>/dp/mvc/ListController</url-pattern>
   </servlet-mapping>
+
+  <error-page>
+    <exception-type>java.lang.Exception</exception-type>
+    <location>/sample/ErrorServlet</location>
+  </error-page>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/WEB-INF/jsp/404.jsp</location>
+  </error-page>
 </web-app>
