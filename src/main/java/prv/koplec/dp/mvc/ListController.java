@@ -33,20 +33,22 @@ public class ListController extends HttpServlet{
         String first = req.getParameter(FIRST_PARAM);
         String email = req.getParameter(EMAIL_PARAM);
 
+        // modelへの指示
         MailingBean mb = MailingBeanFactory.newInstance();
 
         mb.setLast(last);
         mb.setFirst(first);
         mb.setEmail(email);
 
-        req.setAttribute(MAILINGBEAN_ATTR, mb);
-
+        
         // beanにビジネスロジックを実行させる
         boolean result = mb.doSubscribe();
-
+        
+        // Viewにモデルを渡して描画の支持
         String nextPage = "/success.jsp";
-        if(!result) nextPage = "/failure.jsp";
-
+        if(!result) nextPage = "/WEB-INF/jsp/dp/mvc/failure.jsp";
+        
+        req.setAttribute(MAILINGBEAN_ATTR, mb);
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextPage);
         dispatcher.forward(req, resp);
     }
