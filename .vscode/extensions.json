@@ -1,8 +1,8 @@
 {
     "recommendations": [
-        "vscjava.vscode-java-pack",
         "redhat.vscode-community-server-connector",
         "redhat.vscode-xml",
-        "rangav.vscode-thunder-client"
+        "rangav.vscode-thunder-client",
+        "vscjava.vscode-java-dependency"
     ]
 }
