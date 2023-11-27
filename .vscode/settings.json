@@ -1,3 +1,5 @@
 {
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "mavenPackageAuto.enable":false,
+    "mavenPackageAuto.maven.executable.options": "package -f \"c:\\Users\\fumuf\\projects\\jakartaee-app\\pom.xml\""
 }
