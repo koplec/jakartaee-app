@@ -11,10 +11,12 @@
 <body>
     <table>
     <koptag:ServletInfo os.name="true" os.version="true" java.home="true" java.class.path="false">
-    <tr>
-        <th>${name}</th>
-        <td>${value}</td>
-    </tr>
+        <jsp:attribute name="row">
+            <tr>
+                <th>${name}</th>
+                <td>${value}</td>
+            </tr>
+        </jsp:attribute>
     </koptag:ServletInfo>
     </table>
 </body>

@@ -12,6 +12,11 @@ import jakarta.servlet.jsp.tagext.JspFragment;
 import jakarta.servlet.jsp.tagext.SimpleTagSupport;
 
 public class ServletInfoTag extends SimpleTagSupport implements DynamicAttributes{
+    private JspFragment row;
+    public void setRow(JspFragment row) {
+        this.row = row;
+    }
+
     private Map<String, String> map; //動的属性を保存
     public ServletInfoTag(){
         map = new HashMap<>();
@@ -24,12 +29,11 @@ public class ServletInfoTag extends SimpleTagSupport implements DynamicAttribute
     @Override
     public void doTag() throws JspException, IOException {
         JspContext context = getJspContext();
-        JspFragment frag = getJspBody();
         for(String name : map.keySet()){
             if(map.get(name).equals("true")){
                 context.setAttribute("name", name);
                 context.setAttribute("value", System.getProperty(name));
-                frag.invoke(null);//nullはcontext.getOutと同じ
+                row.invoke(null);//nullはcontext.getOutと同じ
             }
         }
     }
