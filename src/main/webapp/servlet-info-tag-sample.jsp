@@ -9,9 +9,13 @@
     <title>ServletInfoTag Sample</title>
 </head>
 <body>
-    <ul>
+    <table>
     <koptag:ServletInfo os.name="true" os.version="true" java.home="true" java.class.path="false">
+    <tr>
+        <th>${name}</th>
+        <td>${value}</td>
+    </tr>
     </koptag:ServletInfo>
-    </ul>
+    </table>
 </body>
 </html>

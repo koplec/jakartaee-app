@@ -8,6 +8,7 @@ import jakarta.servlet.jsp.JspContext;
 import jakarta.servlet.jsp.JspException;
 import jakarta.servlet.jsp.JspWriter;
 import jakarta.servlet.jsp.tagext.DynamicAttributes;
+import jakarta.servlet.jsp.tagext.JspFragment;
 import jakarta.servlet.jsp.tagext.SimpleTagSupport;
 
 public class ServletInfoTag extends SimpleTagSupport implements DynamicAttributes{
@@ -23,10 +24,12 @@ public class ServletInfoTag extends SimpleTagSupport implements DynamicAttribute
     @Override
     public void doTag() throws JspException, IOException {
         JspContext context = getJspContext();
-        JspWriter out = context.getOut();
+        JspFragment frag = getJspBody();
         for(String name : map.keySet()){
             if(map.get(name).equals("true")){
-                out.println("<li>" + name + ":" + System.getProperty(name) +"</li>");
+                context.setAttribute("name", name);
+                context.setAttribute("value", System.getProperty(name));
+                frag.invoke(null);//nullはcontext.getOutと同じ
             }
         }
     }
