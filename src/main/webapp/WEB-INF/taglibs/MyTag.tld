@@ -36,4 +36,9 @@
         </attribute>
         <dynamic-attributes>true</dynamic-attributes>
     </tag>
+    <tag>
+        <name>CatNyan</name>
+        <tag-class>prv.koplec.servlet.tag.CatNyanTag</tag-class>
+        <body-content>scriptless</body-content>
+    </tag>
 </taglib>
