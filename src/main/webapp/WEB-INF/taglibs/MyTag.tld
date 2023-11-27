@@ -25,4 +25,10 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
+    <tag>
+        <name>ServletInfo</name>
+        <tag-class>prv.koplec.servlet.tag.ServletInfoTag</tag-class>
+        <body-content>scriptless</body-content>
+        <dynamic-attributes>true</dynamic-attributes>
+    </tag>
 </taglib>
