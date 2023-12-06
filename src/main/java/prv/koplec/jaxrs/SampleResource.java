@@ -4,8 +4,10 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import prv.koplec.jaxrs.annotation.MyFilterMark;
 
 @Path("/sample")
+@MyFilterMark
 public class SampleResource {
 
     // localhost:8080/webapp/api/sampleで表示されることを確認

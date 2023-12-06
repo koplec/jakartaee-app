@@ -6,10 +6,12 @@ import java.io.InputStream;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerRequestFilter;
 import jakarta.ws.rs.ext.Provider;
+import prv.koplec.jaxrs.annotation.MyFilterMark;
 import jakarta.ws.rs.core.MultivaluedMap;
 import jakarta.ws.rs.core.UriInfo;
 
 @Provider
+@MyFilterMark
 public class MyRequestFilter implements ContainerRequestFilter{
 
     @Override
