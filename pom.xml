@@ -23,6 +23,8 @@
 
 
 
+
+
    <!-- JAX-B -->
     <dependency>
         <groupId>org.glassfish.jersey.media</groupId>
@@ -61,12 +63,19 @@
     </dependency>
 
 
-    <!-- INIT -->
+    <!-- SERVLET/JSP -->
     <dependency>
       <groupId>jakarta.servlet</groupId>
       <artifactId>jakarta.servlet-api</artifactId>
       <version>6.0.0</version>
     </dependency>
+
+    <dependency>
+      <groupId>jakarta.servlet.jsp</groupId>
+      <artifactId>jakarta.servlet.jsp-api</artifactId>
+      <version>3.1.1</version>
+    </dependency>
+
 
     <dependency>
       <groupId>junit</groupId>
