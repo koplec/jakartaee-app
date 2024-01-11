@@ -13,6 +13,7 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.UriInfo;
 import prv.koplec.jaxrs_todo.entities.User;
+import prv.koplec.jaxrs_todo.services.AuthService;
 import prv.koplec.jaxrs_todo.services.UserService;
 import prv.koplec.jaxrs_todo.services.UserServiceImpl;
 
@@ -59,7 +60,7 @@ public class AuthResource {
     // トークンの発行
     private String issueToken(String username) {
         // シークレットキー（安全なキーを生成）
-        SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+        SecretKey secretKey = AuthService.getSecretKey();
 
         // トークンの有効期限（ここでは1時間）
         long expirationMillis = System.currentTimeMillis() + 3600000;
