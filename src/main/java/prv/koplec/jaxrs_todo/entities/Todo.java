@@ -2,12 +2,20 @@ package prv.koplec.jaxrs_todo.entities;
 
 public class Todo {
     private Long id;
+
     private String title;
     private String description;
     private boolean completed;
     private String deadline;
+    private Long userId;
 
     
+    public Long getUserId() {
+        return userId;
+    }
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
     public Todo() {
     }
     public Long getId() {

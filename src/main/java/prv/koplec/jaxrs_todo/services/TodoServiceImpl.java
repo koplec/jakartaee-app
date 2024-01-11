@@ -20,6 +20,7 @@ public class TodoServiceImpl implements TodoService {
         todo1.setDescription("This is a sample todo.");
         todo1.setCompleted(false);
         todo1.setDeadline("2022-12-31");
+        todo1.setUserId(1L);
         todoList.add(todo1);
 
         Todo todo2 = new Todo();
@@ -28,6 +29,7 @@ public class TodoServiceImpl implements TodoService {
         todo2.setDescription("Another sample todo.");
         todo2.setCompleted(true);
         todo2.setDeadline("2022-12-30");
+        todo2.setUserId(1L);
         todoList.add(todo2);
 
         Todo todo3 = new Todo();
@@ -36,6 +38,7 @@ public class TodoServiceImpl implements TodoService {
         todo3.setDescription("Yet another sample todo.");
         todo3.setCompleted(false);
         todo3.setDeadline("2022-12-29");
+        todo3.setUserId(2L);
         todoList.add(todo3);
     }
 
@@ -57,8 +60,6 @@ public class TodoServiceImpl implements TodoService {
         }
         return existingTodo;
     }
-
-    
 
     @Override
     public List<Todo> getTodos() {
