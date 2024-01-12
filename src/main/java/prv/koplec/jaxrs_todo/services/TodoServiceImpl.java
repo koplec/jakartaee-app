@@ -6,6 +6,8 @@ import prv.koplec.jaxrs_todo.entities.Todo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Singleton
 public class TodoServiceImpl implements TodoService {
@@ -69,6 +71,36 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public Todo getTodoById(Long id) {
         return findTodoById(id);
+    }
+
+     
+    @Override
+    public List<Todo> searchTodos(Boolean completed, Long userId, String orderBy, int limit) {
+        // クエリ パラメータに基づいて Todo を検索するロジックを実装
+        Stream<Todo> result = todoList.stream();
+
+        if (completed != null) {
+            result = result.filter(todo -> todo.isCompleted() == completed);
+        }
+
+        if (userId != null) {
+            result = result.filter(todo -> todo.getUserId().equals(userId));
+        }
+
+        // orderBy によるソート
+        if (orderBy != null) {
+            switch (orderBy) {
+                case "title":
+                    result = result.sorted((t1, t2) -> t1.getTitle().compareTo(t2.getTitle()));
+                    break;
+                case "deadline":
+                    result = result.sorted((t1, t2) -> t1.getDeadline().compareTo(t2.getDeadline()));
+                    break;
+                // 他にも必要に応じてソートを追加
+            }
+        }
+
+        return result.limit(limit).collect(Collectors.toList());
     }
 
     @Override

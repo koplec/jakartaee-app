@@ -36,9 +36,14 @@ public class TodoResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTodos() {
-        List<Todo> todoList = todoService.getTodos();
-        return Response.ok(todoList).build();
+    public Response getTodos(
+            @QueryParam("completed") Boolean completed,
+            @QueryParam("userId") Long userId,
+            @QueryParam("orderBy") String orderBy, 
+            @QueryParam("limit") @DefaultValue("10") int limit){
+  
+        List<Todo> result = todoService.searchTodos(completed, userId, orderBy, limit);
+        return Response.ok(result).build();
     }
 
     @GET
