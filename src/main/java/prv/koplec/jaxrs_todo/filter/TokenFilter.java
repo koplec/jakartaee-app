@@ -13,10 +13,12 @@ import jakarta.ws.rs.container.ContainerRequestFilter;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.SecurityContext;
 import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.ext.Provider;
 
 import java.io.IOException;
+import java.security.Principal;
 
 @Provider
 @Priority(1)
@@ -69,10 +71,44 @@ public class TokenFilter implements ContainerRequestFilter {
         User user = userService.getUserByUsername(username);
         if (user != null) {
             // リクエストを通す
-            requestContext.setProperty("user", user);
+            // requestContext.setProperty("user", user);
+            requestContext.setSecurityContext(new CustomSecurityContext(user));
         } else {
             // ユーザが無効な場合、リクエストを拒否
             throw new RuntimeException("User is not valid");
         }
+    }
+
+    private static class CustomSecurityContext implements SecurityContext {
+        
+        private final User user;
+
+        public CustomSecurityContext(User user) {
+            this.user = user;
+        }
+
+        @Override
+        public boolean isUserInRole(String role) {
+            // ロールの検証は行わない
+            return true;
+        }
+
+        @Override
+        public boolean isSecure() {
+            // HTTPS で通信しているかどうかの検証は行わない
+            return false;
+        }
+
+        @Override
+        public String getAuthenticationScheme() {
+            // 認証スキームの検証は行わない
+            return null;
+        }
+
+        @Override
+        public Principal getUserPrincipal() {
+            return () -> user.getUsername();
+        }
+       
     }
 }
