@@ -26,7 +26,7 @@ public class TodoResource {
 
     // @Inject
     // public TodoResource(TodoService todoService) {
-    //     this.todoService = todoService;
+    // this.todoService = todoService;
     // }
 
     public TodoResource() {
@@ -67,20 +67,21 @@ public class TodoResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateTodo(@PathParam("id") Long id, Todo updatedTodo) {
-        //ログインユーザの情報取得
+        // ログインユーザの情報取得
         Principal principal = securityContext.getUserPrincipal();
-        
+
         if (principal != null) {
             String username = principal.getName();
             User principalUser = userService.getUserByUsername(username);
             // ユーザが自分のTodoを更新しようとしているか確認
             Todo existingTodo = todoService.getTodoById(id);
-            if(existingTodo == null){
-                return Response.status(Response.Status.NOT_FOUND).entity("Todo not found").build(); 
+            if (existingTodo == null) {
+                return Response.status(Response.Status.NOT_FOUND).entity("Todo not found").build();
             }
             Long userId = existingTodo.getUserId();
-            if(!principalUser.getId().equals(userId)){
-                return Response.status(Response.Status.FORBIDDEN).entity("You don't have permission to update this todo").build();
+            if (!principalUser.getId().equals(userId)) {
+                return Response.status(Response.Status.FORBIDDEN)
+                        .entity("You don't have permission to update this todo").build();
             }
 
             Todo updated = todoService.updateTodo(id, updatedTodo);
@@ -93,30 +94,94 @@ public class TodoResource {
     @DELETE
     @Path("/{id}")
     public Response deleteTodo(@PathParam("id") Long id) {
-        //ログインユーザの情報取得
+        // ログインユーザの情報取得
         Principal principal = securityContext.getUserPrincipal();
-        
+
         if (principal != null) {
             String username = principal.getName();
             User principalUser = userService.getUserByUsername(username);
             // ユーザが自分のTodoを更新しようとしているか確認
             Todo existingTodo = todoService.getTodoById(id);
-            if(existingTodo == null){
-                return Response.status(Response.Status.NOT_FOUND).entity("Todo not found").build(); 
+            if (existingTodo == null) {
+                return Response.status(Response.Status.NOT_FOUND).entity("Todo not found").build();
             }
             Long userId = existingTodo.getUserId();
-            if(!principalUser.getId().equals(userId)){
-                return Response.status(Response.Status.FORBIDDEN).entity("You don't have permission to update this todo").build();
+            if (!principalUser.getId().equals(userId)) {
+                return Response.status(Response.Status.FORBIDDEN)
+                        .entity("You don't have permission to update this todo").build();
             }
 
-            boolean deleted  = todoService.deleteTodo(id);
+            boolean deleted = todoService.deleteTodo(id);
             if (deleted) {
                 return Response.noContent().build();
             } else {
                 return Response.status(Response.Status.NOT_FOUND).entity("Todo not found").build();
             }
-        }else{
+        } else {
             return Response.status(Response.Status.UNAUTHORIZED).entity("User not authenticated").build();
         }
     }
+
+    @PUT
+    @Path("/{id}/complete")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response completeTodo(@PathParam("id") Long id) {
+        // ログインユーザの情報取得
+        Principal principal = securityContext.getUserPrincipal();
+
+        if (principal != null) {
+            String username = principal.getName();
+            User principalUser = userService.getUserByUsername(username);
+            // ユーザが自分のTodoを完了しようとしているか確認
+            Todo existingTodo = todoService.getTodoById(id);
+            if (existingTodo == null) {
+                return Response.status(Response.Status.NOT_FOUND).entity("Todo not found").build();
+            }
+            Long userId = existingTodo.getUserId();
+            if (!principalUser.getId().equals(userId)) {
+                return Response.status(Response.Status.FORBIDDEN)
+                        .entity("You don't have permission to complete this todo").build();
+            }
+
+            // Todoを完了状態に更新
+            existingTodo.setCompleted(true);
+            Todo completedTodo = todoService.updateTodo(id, existingTodo);
+
+            return Response.ok(completedTodo).build();
+        } else {
+            return Response.status(Response.Status.UNAUTHORIZED).entity("User not authenticated").build();
+        }
+    }
+
+    @PUT
+    @Path("/{id}/uncomplete")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response uncompleteTodo(@PathParam("id") Long id) {
+        // ログインユーザの情報取得
+        Principal principal = securityContext.getUserPrincipal();
+
+        if (principal != null) {
+            String username = principal.getName();
+            User principalUser = userService.getUserByUsername(username);
+            // ユーザが自分のTodoを未完了に戻そうとしているか確認
+            Todo existingTodo = todoService.getTodoById(id);
+            if (existingTodo == null) {
+                return Response.status(Response.Status.NOT_FOUND).entity("Todo not found").build();
+            }
+            Long userId = existingTodo.getUserId();
+            if (!principalUser.getId().equals(userId)) {
+                return Response.status(Response.Status.FORBIDDEN)
+                        .entity("You don't have permission to uncomplete this todo").build();
+            }
+
+            // Todoを未完了状態に更新
+            existingTodo.setCompleted(false);
+            Todo uncompletedTodo = todoService.updateTodo(id, existingTodo);
+
+            return Response.ok(uncompletedTodo).build();
+        } else {
+            return Response.status(Response.Status.UNAUTHORIZED).entity("User not authenticated").build();
+        }
+    }
+
 }

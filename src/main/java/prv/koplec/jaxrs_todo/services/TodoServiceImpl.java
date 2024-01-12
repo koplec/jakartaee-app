@@ -27,7 +27,7 @@ public class TodoServiceImpl implements TodoService {
         todo2.setId(2L);
         todo2.setTitle("Sample Todo 2");
         todo2.setDescription("Another sample todo.");
-        todo2.setCompleted(true);
+        todo2.setCompleted(false);
         todo2.setDeadline("2022-12-30");
         todo2.setUserId(1L);
         todoList.add(todo2);
