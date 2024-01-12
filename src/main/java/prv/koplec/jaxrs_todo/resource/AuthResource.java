@@ -17,14 +17,12 @@ import prv.koplec.jaxrs_todo.services.AuthService;
 import prv.koplec.jaxrs_todo.services.UserService;
 import prv.koplec.jaxrs_todo.services.UserServiceImpl;
 
-import java.util.Date;
-
-import javax.crypto.SecretKey;
 
 @Path("/auth")
 public class AuthResource {
 
     private final UserService userService;
+    private final AuthService authService;
 
     // @Inject
     // public AuthResource(UserService userService) {
@@ -32,6 +30,7 @@ public class AuthResource {
     // }
     public AuthResource(){
         this.userService = new UserServiceImpl();
+        this.authService = new AuthService();
     }
 
     @POST
@@ -59,16 +58,6 @@ public class AuthResource {
 
     // トークンの発行
     private String issueToken(String username) {
-        // シークレットキー（安全なキーを生成）
-        SecretKey secretKey = AuthService.getSecretKey();
-
-        // トークンの有効期限（ここでは1時間）
-        long expirationMillis = System.currentTimeMillis() + 3600000;
-
-        return Jwts.builder()
-                .setSubject(username)
-                .setExpiration(new Date(expirationMillis))
-                .signWith(secretKey)
-                .compact();
+        return authService.issueToken(username);
     }
 }

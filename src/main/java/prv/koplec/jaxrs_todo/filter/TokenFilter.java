@@ -28,10 +28,13 @@ public class TokenFilter implements ContainerRequestFilter {
 
     @Context
     private UriInfo uriInfo;
+    
     private final UserService userService;
+    private final AuthService authService;
 
     public TokenFilter() {
         this.userService = new UserServiceImpl();
+        this.authService = new AuthService();
     }
 
     @Override
@@ -49,7 +52,6 @@ public class TokenFilter implements ContainerRequestFilter {
                 // トークンを検証
                 String token = authorizationHeader.substring("Bearer".length()).trim();
                 validateToken(token);
-
             } catch (ExpiredJwtException e) {
                 requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).entity("Token has expired").build());
             } catch (Exception e) {
@@ -61,14 +63,8 @@ public class TokenFilter implements ContainerRequestFilter {
     }
 
     private void validateToken(String token) {
-        // シークレットキー（安全なキーを生成）
-        SecretKey secretKey = AuthService.getSecretKey();
-        // トークンの検証
-        Jws<Claims> claimsJws = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token);
-        Claims body = claimsJws.getBody();
-
         // トークンからユーザ名を取得
-        String username = body.getSubject();
+        String username = authService.getSubject(token);
 
         // ユーザ名が存在し、かつユーザが有効ならば、リクエストを許可
         if (username != null && userService.getUserByUsername(username) != null) {
