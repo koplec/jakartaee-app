@@ -1,11 +1,8 @@
 // TokenFilter.java
 package prv.koplec.jaxrs_todo.filter;
 
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
+import prv.koplec.jaxrs_todo.entities.User;
 import prv.koplec.jaxrs_todo.services.AuthService;
 import prv.koplec.jaxrs_todo.services.UserService;
 import prv.koplec.jaxrs_todo.services.UserServiceImpl;
@@ -19,7 +16,6 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.ext.Provider;
 
-import javax.crypto.SecretKey;
 import java.io.IOException;
 
 @Provider
@@ -51,7 +47,7 @@ public class TokenFilter implements ContainerRequestFilter {
             try {
                 // トークンを検証
                 String token = authorizationHeader.substring("Bearer".length()).trim();
-                validateToken(token);
+                validateToken(token, requestContext);
             } catch (ExpiredJwtException e) {
                 requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).entity("Token has expired").build());
             } catch (Exception e) {
@@ -62,13 +58,18 @@ public class TokenFilter implements ContainerRequestFilter {
         }
     }
 
-    private void validateToken(String token) {
+    private void validateToken(String token, ContainerRequestContext requestContext) {
         // トークンからユーザ名を取得
         String username = authService.getSubject(token);
 
         // ユーザ名が存在し、かつユーザが有効ならば、リクエストを許可
-        if (username != null && userService.getUserByUsername(username) != null) {
+        if(username == null){
+            throw new RuntimeException("User is not valid");
+        }
+        User user = userService.getUserByUsername(username);
+        if (user != null) {
             // リクエストを通す
+            requestContext.setProperty("user", user);
         } else {
             // ユーザが無効な場合、リクエストを拒否
             throw new RuntimeException("User is not valid");
