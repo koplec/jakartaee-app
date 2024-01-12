@@ -90,7 +90,7 @@ public class TokenFilter implements ContainerRequestFilter {
         @Override
         public boolean isUserInRole(String role) {
             // ロールの検証は行わない
-            return true;
+            return user.isAdmin() && role.equals("admin");
         }
 
         @Override

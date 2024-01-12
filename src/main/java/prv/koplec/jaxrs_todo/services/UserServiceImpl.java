@@ -12,10 +12,9 @@ public class UserServiceImpl implements UserService {
 
     private static List<User> userList = new ArrayList<>();
 
-    // テストデータを追加
     static {
-        User user1 = new User(1L, "user1", "password1");
-        User user2 = new User(2L, "user2", "password2");
+        User user1 = new User(1L, "user1", "password1", true);
+        User user2 = new User(2L, "user2", "password2", false);
 
         userList.add(user1);
         userList.add(user2);
@@ -40,8 +39,38 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean authenticateUser(String username, String password) {
         User user = getUserByUsername(username);
-
-        // ユーザが存在し、かつパスワードが一致すれば認証成功
         return user != null && user.getPassword().equals(password);
+    }
+
+    @Override
+    public boolean registerUser(User user) {
+        if (getUserByUsername(user.getUsername()) == null) {
+            user.setId(generateNextId());
+            userList.add(user);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean removeUser(Long id) {
+        User user = getUserById(id);
+        if (user != null) {
+            userList.remove(user);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userList;
+    }
+
+    private Long generateNextId() {
+        return userList.stream()
+                .mapToLong(User::getId)
+                .max()
+                .orElse(0L) + 1;
     }
 }
