@@ -5,11 +5,14 @@ import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import prv.koplec.jaxrs_todo.dto.response.UserResponseDto;
 import prv.koplec.jaxrs_todo.entities.User;
 import prv.koplec.jaxrs_todo.services.UserService;
 import prv.koplec.jaxrs_todo.services.UserServiceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
+
 
 @Path("/users")
 @RolesAllowed("admin")
@@ -38,8 +41,9 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUserById(@PathParam("id") Long id) {
         User user = userService.getUserById(id);
+        UserResponseDto userResponseDto = new UserResponseDto(user);
         if (user != null) {
-            return Response.ok(user).build();
+            return Response.ok(userResponseDto).build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).entity("User not found").build();
         }
@@ -49,7 +53,19 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllUsers() {
         List<User> userList = userService.getAllUsers();
-        return Response.ok(userList).build();
+        List<UserResponseDto> userResponseList = convertToUserResponseDtoList(userList);
+        
+        return Response.ok(userResponseList).build();
+    }
+
+    private List<UserResponseDto> convertToUserResponseDtoList(List<User> userList) {
+        List<UserResponseDto> userResponseList = new ArrayList<>();
+        for (User user : userList) {
+            UserResponseDto userResponseDto = new UserResponseDto(user);
+
+            userResponseList.add(userResponseDto);
+        }
+        return userResponseList;
     }
 
     @DELETE
