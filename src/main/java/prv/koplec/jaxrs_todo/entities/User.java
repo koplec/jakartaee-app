@@ -5,7 +5,7 @@ public class User {
     private Long id;
     private String name;
     private String password;
-    private boolean isAdmin;
+    private boolean admin;
 
     // コンストラクタ、ゲッター、セッターなどを追加
 
@@ -18,11 +18,11 @@ public class User {
         this.password = password;
     }
 
-    public User(Long id, String username, String password, boolean isAdmin) {
+    public User(Long id, String username, String password, boolean admin) {
         this.id = id;
         this.name = username;
         this.password = password;
-        this.isAdmin = isAdmin;
+        this.admin = admin;
     }
 
     
@@ -51,12 +51,15 @@ public class User {
         this.id = id;
     }
 
+
     public boolean isAdmin() {
-        return isAdmin;
+        return admin;
     }
 
-    public void setAdmin(boolean isAdmin) {
-        this.isAdmin = isAdmin;
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
+
 
 }
