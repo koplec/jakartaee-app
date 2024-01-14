@@ -62,6 +62,7 @@ public class TokenFilter implements ContainerRequestFilter {
 
     private void validateToken(String token, ContainerRequestContext requestContext) {
         // トークンからユーザ名を取得
+
         String username = authService.getSubject(token);
 
         // ユーザ名が存在し、かつユーザが有効ならば、リクエストを許可

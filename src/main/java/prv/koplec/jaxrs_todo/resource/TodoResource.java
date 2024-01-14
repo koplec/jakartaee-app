@@ -40,9 +40,10 @@ public class TodoResource {
             @QueryParam("completed") Boolean completed,
             @QueryParam("userId") Long userId,
             @QueryParam("orderBy") String orderBy, 
-            @QueryParam("limit") @DefaultValue("10") int limit){
+            @QueryParam("limit") @DefaultValue("10") int limit,
+            @QueryParam("offset") @DefaultValue("0") int offset){
   
-        List<Todo> result = todoService.searchTodos(completed, userId, orderBy, limit);
+        List<Todo> result = todoService.searchTodos(completed, userId, orderBy, limit, offset);
         return Response.ok(result).build();
     }
 

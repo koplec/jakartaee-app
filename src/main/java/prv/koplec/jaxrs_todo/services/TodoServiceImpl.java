@@ -75,7 +75,7 @@ public class TodoServiceImpl implements TodoService {
 
      
     @Override
-    public List<Todo> searchTodos(Boolean completed, Long userId, String orderBy, int limit) {
+    public List<Todo> searchTodos(Boolean completed, Long userId, String orderBy, int limit, int offset) {
         // クエリ パラメータに基づいて Todo を検索するロジックを実装
         Stream<Todo> result = todoList.stream();
 
@@ -100,7 +100,7 @@ public class TodoServiceImpl implements TodoService {
             }
         }
 
-        return result.limit(limit).collect(Collectors.toList());
+        return result.skip(offset).limit(limit).collect(Collectors.toList());
     }
 
     @Override
