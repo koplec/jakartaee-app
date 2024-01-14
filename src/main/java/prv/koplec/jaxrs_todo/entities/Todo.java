@@ -6,8 +6,12 @@ public class Todo {
     private String title;
     private String description;
     private boolean completed;
-    private String deadline;
+    private String dueDate;
     private Long userId;
+    private String userName;
+
+    public Todo() {
+    }
 
     
     public Long getUserId() {
@@ -16,8 +20,7 @@ public class Todo {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
-    public Todo() {
-    }
+
     public Long getId() {
         return id;
     }
@@ -42,10 +45,16 @@ public class Todo {
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
-    public String getDeadline() {
-        return deadline;
+    public String getDueDate() {
+        return dueDate;
     }
-    public void setDeadline(String deadline) {
-        this.deadline = deadline;
+    public void setDueDate(String deadline) {
+        this.dueDate = deadline;
+    }
+    public String getUserName() {
+        return userName;
+    }
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

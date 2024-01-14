@@ -3,7 +3,7 @@ package prv.koplec.jaxrs_todo.entities;
 
 public class User {
     private Long id;
-    private String username;
+    private String name;
     private String password;
     private boolean isAdmin;
 
@@ -14,25 +14,25 @@ public class User {
 
     
     public User(String username, String password) {
-        this.username = username;
+        this.name = username;
         this.password = password;
     }
 
     public User(Long id, String username, String password, boolean isAdmin) {
         this.id = id;
-        this.username = username;
+        this.name = username;
         this.password = password;
         this.isAdmin = isAdmin;
     }
 
     
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String username) {
+        this.name = username;
     }
 
     public String getPassword() {

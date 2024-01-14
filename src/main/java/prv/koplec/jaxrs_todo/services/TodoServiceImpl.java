@@ -21,8 +21,9 @@ public class TodoServiceImpl implements TodoService {
         todo1.setTitle("Sample Todo 1");
         todo1.setDescription("This is a sample todo.");
         todo1.setCompleted(false);
-        todo1.setDeadline("2022-12-31");
+        todo1.setDueDate("2022-12-31");
         todo1.setUserId(1L);
+        todo1.setUserName("user1");
         todoList.add(todo1);
 
         Todo todo2 = new Todo();
@@ -30,8 +31,9 @@ public class TodoServiceImpl implements TodoService {
         todo2.setTitle("Sample Todo 2");
         todo2.setDescription("Another sample todo.");
         todo2.setCompleted(false);
-        todo2.setDeadline("2022-12-30");
+        todo2.setDueDate("2022-12-30");
         todo2.setUserId(1L);
+        todo2.setUserName("user1");
         todoList.add(todo2);
 
         Todo todo3 = new Todo();
@@ -39,8 +41,9 @@ public class TodoServiceImpl implements TodoService {
         todo3.setTitle("Sample Todo 3");
         todo3.setDescription("Yet another sample todo.");
         todo3.setCompleted(false);
-        todo3.setDeadline("2022-12-29");
+        todo3.setDueDate("2022-12-29");
         todo3.setUserId(2L);
+        todo3.setUserName("user2");
         todoList.add(todo3);
     }
 
@@ -58,7 +61,7 @@ public class TodoServiceImpl implements TodoService {
             existingTodo.setTitle(updatedTodo.getTitle());
             existingTodo.setDescription(updatedTodo.getDescription());
             existingTodo.setCompleted(updatedTodo.isCompleted());
-            existingTodo.setDeadline(updatedTodo.getDeadline());
+            existingTodo.setDueDate(updatedTodo.getDueDate());
         }
         return existingTodo;
     }
@@ -94,7 +97,7 @@ public class TodoServiceImpl implements TodoService {
                     result = result.sorted((t1, t2) -> t1.getTitle().compareTo(t2.getTitle()));
                     break;
                 case "deadline":
-                    result = result.sorted((t1, t2) -> t1.getDeadline().compareTo(t2.getDeadline()));
+                    result = result.sorted((t1, t2) -> t1.getDueDate().compareTo(t2.getDueDate()));
                     break;
                 // 他にも必要に応じてソートを追加
             }

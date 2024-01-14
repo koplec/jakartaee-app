@@ -108,7 +108,7 @@ public class TokenFilter implements ContainerRequestFilter {
 
         @Override
         public Principal getUserPrincipal() {
-            return () -> user.getUsername();
+            return () -> user.getName();
         }
        
     }

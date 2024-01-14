@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByUsername(String username) {
         return userList.stream()
-                .filter(user -> user.getUsername().equals(username))
+                .filter(user -> user.getName().equals(username))
                 .findFirst()
                 .orElse(null);
     }
@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean registerUser(User user) {
-        if (getUserByUsername(user.getUsername()) == null) {
+        if (getUserByUsername(user.getName()) == null) {
             user.setId(generateNextId());
             userList.add(user);
             return true;

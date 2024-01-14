@@ -61,7 +61,7 @@ public class AuthResource {
 
         if (isAuthenticated) {
             // トークンの発行
-            String token = issueToken(user.getUsername());
+            String token = issueToken(user.getName());
             return token;
         } else {
             throw new WebApplicationException(Response.Status.UNAUTHORIZED);
@@ -71,7 +71,7 @@ public class AuthResource {
     // ユーザ認証
     private boolean authenticateUser(User user) {
         // ユーザ名とパスワードの検証を UserService で行う
-        return userService.authenticateUser(user.getUsername(), user.getPassword());
+        return userService.authenticateUser(user.getName(), user.getPassword());
     }
 
     // トークンの発行

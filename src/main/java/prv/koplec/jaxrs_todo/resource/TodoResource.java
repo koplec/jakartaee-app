@@ -76,7 +76,7 @@ public class TodoResource {
         // ログインユーザの情報取得
         Principal principal = securityContext.getUserPrincipal();
 
-        if (principal != null) {
+        if (true || principal != null) {
             String username = principal.getName();
             User principalUser = userService.getUserByUsername(username);
             // ユーザが自分のTodoを更新しようとしているか確認
@@ -135,7 +135,7 @@ public class TodoResource {
         // ログインユーザの情報取得
         Principal principal = securityContext.getUserPrincipal();
 
-        if (principal != null) {
+        if (true || principal != null) {
             String username = principal.getName();
             User principalUser = userService.getUserByUsername(username);
             // ユーザが自分のTodoを完了しようとしているか確認
@@ -166,7 +166,7 @@ public class TodoResource {
         // ログインユーザの情報取得
         Principal principal = securityContext.getUserPrincipal();
 
-        if (principal != null) {
+        if (true || principal != null) {
             String username = principal.getName();
             User principalUser = userService.getUserByUsername(username);
             // ユーザが自分のTodoを未完了に戻そうとしているか確認
