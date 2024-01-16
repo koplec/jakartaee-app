@@ -1,11 +1,6 @@
 // AuthResource.java
 package prv.koplec.jaxrs_todo.resource;
 
-import javax.print.attribute.standard.Media;
-
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.FormParam;
@@ -20,22 +15,22 @@ import jakarta.ws.rs.core.UriInfo;
 import prv.koplec.jaxrs_todo.entities.User;
 import prv.koplec.jaxrs_todo.services.AuthService;
 import prv.koplec.jaxrs_todo.services.UserService;
-import prv.koplec.jaxrs_todo.services.UserServiceImpl;
 
 
 @Path("/auth")
 public class AuthResource {
 
-    private final UserService userService;
-    private final AuthService authService;
+    @Inject
+    private UserService userService;
+
+    @Inject
+    private AuthService authService;
 
     // @Inject
     // public AuthResource(UserService userService) {
     //     this.userService = userService;
     // }
     public AuthResource(){
-        this.userService = new UserServiceImpl();
-        this.authService = new AuthService();
     }
 
     @POST
@@ -50,7 +45,7 @@ public class AuthResource {
     @Path("/login")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)
-    public String formLogin(@FormParam("username") String username, @FormParam("password") String password) {
+    public String formLogin(@FormParam("name") String username, @FormParam("password") String password) {
         User user = new User(username, password);
         return issueTokenByUser(user);
     }

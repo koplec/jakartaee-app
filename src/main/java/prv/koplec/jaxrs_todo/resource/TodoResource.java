@@ -9,9 +9,8 @@ import jakarta.ws.rs.core.SecurityContext;
 import prv.koplec.jaxrs_todo.entities.Todo;
 import prv.koplec.jaxrs_todo.entities.User;
 import prv.koplec.jaxrs_todo.services.TodoService;
-import prv.koplec.jaxrs_todo.services.TodoServiceImpl;
 import prv.koplec.jaxrs_todo.services.UserService;
-import prv.koplec.jaxrs_todo.services.UserServiceImpl;
+
 
 import java.security.Principal;
 import java.util.List;

@@ -2,13 +2,13 @@
 package prv.koplec.jaxrs_todo.resource;
 
 import jakarta.annotation.security.RolesAllowed;
+import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import prv.koplec.jaxrs_todo.dto.response.UserResponseDto;
 import prv.koplec.jaxrs_todo.entities.User;
 import prv.koplec.jaxrs_todo.services.UserService;
-import prv.koplec.jaxrs_todo.services.UserServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +17,10 @@ import java.util.List;
 @Path("/users")
 @RolesAllowed("admin")
 public class UserResource {
-
-    private final UserService userService;
+    @Inject
+    private UserService userService;
 
     public UserResource() {
-        this.userService = new UserServiceImpl();
     }
 
     @POST
