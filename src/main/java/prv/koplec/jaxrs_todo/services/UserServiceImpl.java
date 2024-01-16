@@ -1,13 +1,13 @@
 // UserServiceImpl.java
 package prv.koplec.jaxrs_todo.services;
 
-import jakarta.inject.Singleton;
+import jakarta.enterprise.context.ApplicationScoped;
 import prv.koplec.jaxrs_todo.entities.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Singleton
+@ApplicationScoped
 public class UserServiceImpl implements UserService {
 
     private static List<User> userList = new ArrayList<>();
@@ -18,6 +18,9 @@ public class UserServiceImpl implements UserService {
 
         userList.add(user1);
         userList.add(user2);
+    }
+
+    public UserServiceImpl() {
     }
 
     @Override

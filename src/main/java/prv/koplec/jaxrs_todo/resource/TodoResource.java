@@ -9,17 +9,18 @@ import jakarta.ws.rs.core.SecurityContext;
 import prv.koplec.jaxrs_todo.entities.Todo;
 import prv.koplec.jaxrs_todo.entities.User;
 import prv.koplec.jaxrs_todo.services.TodoService;
-import prv.koplec.jaxrs_todo.services.TodoServiceImpl;
 import prv.koplec.jaxrs_todo.services.UserService;
-import prv.koplec.jaxrs_todo.services.UserServiceImpl;
 
 import java.security.Principal;
 import java.util.List;
 
 @Path("/todos")
 public class TodoResource {
-    private final TodoService todoService;
-    private final UserService userService;
+    @Inject
+    TodoService todoService;
+
+    @Inject
+    UserService userService;
 
     @Context
     private SecurityContext securityContext;
@@ -29,10 +30,10 @@ public class TodoResource {
     // this.todoService = todoService;
     // }
 
-    public TodoResource() {
-        this.todoService = new TodoServiceImpl();
-        this.userService = new UserServiceImpl();
+    public TodoResource() { 
     }
+
+
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

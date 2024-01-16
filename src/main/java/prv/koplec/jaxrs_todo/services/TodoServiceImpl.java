@@ -1,7 +1,7 @@
 // TodoServiceImpl.java
 package prv.koplec.jaxrs_todo.services;
 
-import jakarta.inject.Singleton;
+import jakarta.enterprise.context.ApplicationScoped;
 import prv.koplec.jaxrs_todo.entities.Todo;
 
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@Singleton
+@ApplicationScoped
 public class TodoServiceImpl implements TodoService {
 
     private static List<Todo> todoList = new ArrayList<>();
@@ -45,6 +45,9 @@ public class TodoServiceImpl implements TodoService {
         todo3.setUserId(2L);
         todo3.setUserName("user2");
         todoList.add(todo3);
+    }
+
+    public TodoServiceImpl() {
     }
 
     @Override
