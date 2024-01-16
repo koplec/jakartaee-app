@@ -18,8 +18,11 @@ import java.util.List;
 
 @Path("/todos")
 public class TodoResource {
-    private final TodoService todoService;
-    private final UserService userService;
+    @Inject
+    private TodoService todoService;
+
+    @Inject
+    private UserService userService;
 
     @Context
     private SecurityContext securityContext;
@@ -30,8 +33,8 @@ public class TodoResource {
     // }
 
     public TodoResource() {
-        this.todoService = new TodoServiceImpl();
-        this.userService = new UserServiceImpl();
+        // this.todoService = new TodoServiceImpl();
+        // this.userService = new UserServiceImpl();
     }
 
     @GET

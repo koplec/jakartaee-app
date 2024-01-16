@@ -53,6 +53,7 @@
       <artifactId>jersey-container-servlet</artifactId>
       <version>3.1.5</version>
     </dependency>
+    <!-- HK2はDI？ -->
     <dependency>
       <groupId>org.glassfish.jersey.inject</groupId>
       <artifactId>jersey-hk2</artifactId>
