@@ -1,0 +1,16 @@
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCRENET PRIMARY KEY,
+    name VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    admin BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+CREATE TABLE IF NOT EXISTS todos (
+    id INT AUTO_INCRENET PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    due_date VARCHAR(10),
+    user_id int REFERENCES users(id),
+    completed BOOLEAN DEFAULT FALSE
+);
+
