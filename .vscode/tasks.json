@@ -31,7 +31,8 @@
             "command": "${env:CATALINA_HOME}\\bin\\catalina.bat jpda start", // Windowsの場合
             "presentation": {
                 "reveal": "always"
-            }
+            },
+            "problemMatcher": []
         },
         {
             "label": "Stop Tomcat",
@@ -39,7 +40,8 @@
             "command": "${env:CATALINA_HOME}\\bin\\catalina.bat stop", // Windowsの場合
             "presentation": {
                 "reveal": "always"
-            }
+            },
+            "problemMatcher": []
         }
     ]
 }
