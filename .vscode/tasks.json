@@ -24,6 +24,22 @@
             "presentation": {
                 "reveal": "always"
             }
+        },
+        {
+            "label": "Start Tomcat (Debug mode)",
+            "type": "shell",
+            "command": "${env:CATALINA_HOME}\\bin\\catalina.bat jpda start", // Windowsの場合
+            "presentation": {
+                "reveal": "always"
+            }
+        },
+        {
+            "label": "Stop Tomcat",
+            "type": "shell",
+            "command": "${env:CATALINA_HOME}\\bin\\catalina.bat stop", // Windowsの場合
+            "presentation": {
+                "reveal": "always"
+            }
         }
     ]
 }
