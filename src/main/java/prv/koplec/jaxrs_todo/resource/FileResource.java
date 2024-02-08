@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -41,12 +42,13 @@ public class FileResource {
 
     @GET
     @Path("/download/{fileName}")
-    public Response downloadFile(@PathParam("fileName") String fileName) {
+    public Response downloadFile(@PathParam("fileName") String fileName) throws UnsupportedEncodingException{
         String tempFolderPath = System.getProperty("java.io.tmpdir");
         java.nio.file.Path filePath = Paths.get(tempFolderPath, fileName);
         if (Files.exists(filePath)) {
+            String encodedFileName = URLEncoder.encode(fileName, StandardCharsets.UTF_8.name());
             return Response.ok(filePath.toFile(), MediaType.APPLICATION_OCTET_STREAM)
-                    .header("Content-Disposition", "attachment; filename=\"" + fileName + "\"")
+                    .header("Content-Disposition", "attachment; filename*=UTF-8''" + encodedFileName )
                     .build();
         }
         return Response.status(404).entity("File not found").build();
